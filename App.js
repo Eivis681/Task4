@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import HomePage from './pages/HomePage';
+import DetailsPage from './pages/DetailsPage';
+import ScanerPage from './pages/ScanerPage';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import * as firebase from 'firebase';
+import "firebase/database";
+import { firebaseConfig } from "./firebase/db";
+
+
+const Stack = createStackNavigator();
+//firebase.initializeApp(firebaseConfig);
+export default class App extends Component{
+  render(){
+    return(
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen name='Home' component={HomePage}/>
+          <Stack.Screen name='Details' component={DetailsPage}/>
+          <Stack.Screen name='Scan' component={ScanerPage}/>
+
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
